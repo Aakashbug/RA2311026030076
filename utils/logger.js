@@ -20,6 +20,6 @@ export const Log = async (stack, level, pkg, message) => {
       }
     );
   } catch (err) {
-    console.error("Logging failed");
+    console.error("Log failed");
   }
 };

@@ -2,14 +2,24 @@
 
 import { useEffect, useState } from "react";
 import { getNotifications } from "../services/api";
+import { Log } from "../utils/logger";
 
 export default function Home() {
   const [data, setData] = useState([]);
   const [type, setType] = useState("");
 
   useEffect(() => {
-    getNotifications().then(setData);
-  }, []);
+  Log("frontend", "info", "page", "Home page loaded");
+
+  getNotifications()
+    .then((res) => {
+      setData(res);
+      Log("frontend", "info", "page", "Data loaded");
+    })
+    .catch(() => {
+      Log("frontend", "error", "page", "Error loading data");
+    });
+}, []);
 
   const filtered = type
     ? data.filter((n) => n.Type === type)
